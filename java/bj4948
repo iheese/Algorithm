@@ -1,0 +1,83 @@
+//4948 베르트랑 공준
+
+```
+//아예 안된다.. 시간초과인가?
+import java.util.Scanner;
+
+public class Main {
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		
+		
+		while(true) {
+			int a = sc.nextInt();
+			
+			if(a==0) {
+				break;
+			}
+			int cnt=0;
+			for(int i=a;i<=(2*a);i++) {
+				
+				boolean isPrime=true;
+				if(i==1) {
+					continue;
+				}
+				for(int j=2;j<=Math.sqrt(i);j++) {
+					if(i%j==0) {
+						isPrime=false;
+						break;
+					}
+				}
+				if(isPrime) {
+					cnt++;
+				}
+			}
+			System.out.println(cnt);
+		}
+	}	
+}
+```
+
+//드디어 풀었다..위처럼 풀면 시간 때문에 걸린다.
+
+```
+import java.util.Scanner;
+
+public class Main {
+
+	public static int getPrime(int n) {
+		boolean[] prime = new boolean[2 * n + 1];
+		prime[0] = prime[1] = true; // 0과 1은 소수 아님
+
+		for (int i = 2; i <= Math.sqrt(prime.length); i++) {
+			if (prime[i])
+				continue; // 소수 아니면 넘어간다.
+			for (int j = i * i; j < prime.length; j += i) {
+				prime[j] = true;
+			}
+		}
+		int count = 0;
+		for (int i = n + 1; i <= (n * 2); i++) {
+			if (!prime[i]) { // 소수만 출력
+				count++;
+			}
+		}
+		return count;
+	}
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+
+		while (true) {
+			int a = sc.nextInt();
+
+			if (a == 0) {
+				break;
+			} else {
+				System.out.println(getPrime(a));
+			}
+		}
+	}
+}
+
+```
