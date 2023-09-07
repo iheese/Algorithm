@@ -1,13 +1,21 @@
 ```sql
 — sessions : userId 와 duration의 평균 조회 근데 1개 이상의 세션만 조회 
 SELECT userId, AVG(duration) FROM sessions GROUP BY userId HAVING COUNT(userId) >1;
+```
 
 - GROUP BY : userId로 그루핑
 - HAVING : 그루핑 된거 중에 1개 이상인거 
 
+<br>
+
+```sql
 — students
 SELECT COUNT(*) FROM students WHERE firstName = 'John';
+```
 
+<br>
+
+```sql
 — Regional Sales Comparison
 WITH RegionSales AS (
     SELECT
@@ -31,12 +39,20 @@ SELECT
     (SELECT MAX(averageSales) FROM RegionSales) - averageSales AS difference
 FROM
     RegionSales;
+```
 
+<br>
+
+```sql
 — Enrollment
 UPDATE enrollments SET year = 2015 WHERE id BETWEEN 20 AND 100;
+```
+
 - BETWEEN 은 각 숫자의 이상 이하를 의미
 
+<br>
 
+```sql
 — Users And Roles
 CREATE TABLE usersRoles (
   userId INTEGER,
@@ -45,26 +61,35 @@ CREATE TABLE usersRoles (
   FOREIGN KEY(roleId) REFERENCES roles(id),
   PRIMARY kEY(userId, roleId)
 );
+```
 
+<br>
+
+```sql
 —Pets : 두 개의 테이블에서 결과를 합쳐서 보여준다. 
 SELECT name
 FROM cats
 UNION
 SELECT name
 FROM dogs;
+```
 
 - 조회 결과를 중복 없이 모두 합쳐서 보여줌
 
+```sql
 SELECT name
 FROM cats
 UNION ALL
 SELECT name
 FROM dogs;
+```
 
 - 조회 결과를 중복 있게 모두 합쳐서 보여줌
 
-— Workers
+<br>
 
+```sql
+— Workers
 select name
 from employees
 where id not in (
@@ -73,13 +98,18 @@ where id not in (
                 inner join employees as b
                 on a.id = b.managerId
                 )
+```
 
+```sql
 select a.name
 from employees as a
 left join employees as b 
 on a.id = b.managerId
 where b.name is null;
+```
 
+
+```sql
 select name
 from employees as a
 where not exists
@@ -88,7 +118,11 @@ where not exists
                    from employees as b
                    where a.id = b.managerId
                  )
+```
 
+<br>
+
+```sql
 —Web Shop
 SELECT b.name, a.name
 FROM sellers AS a
